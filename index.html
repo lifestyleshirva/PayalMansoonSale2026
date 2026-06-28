@@ -1,1 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>NEW PAYAL FASHION KINNIGOLI</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:#111;color:#fff}
+header{background:#ff9800;padding:18px;text-align:center;font-size:30px;font-weight:bold}
+header p{font-size:15px;margin-top:5px}
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;padding:20px}
+.card{background:#1b1b1b;border-radius:12px;overflow:hidden;box-shadow:0 0 10px rgba(0,0,0,.4)}
+.card img{width:100%;display:block;cursor:pointer}
+.btn{display:block;text-align:center;background:#ff9800;color:#fff;text-decoration:none;
+padding:12px;font-weight:bold}
+.btn:hover{background:#e68900}
+.viewer{display:none;position:fixed;inset:0;background:rgba(0,0,0,.96);
+justify-content:center;align-items:center;z-index:999}
+.viewer img{max-width:92%;max-height:85%}
+.close,.prev,.next,.down{
+position:absolute;color:#fff;background:rgba(0,0,0,.45);
+padding:12px 18px;border-radius:8px;cursor:pointer;font-size:20px;text-decoration:none}
+.close{top:20px;right:20px}
+.prev{left:20px;top:50%;transform:translateY(-50%)}
+.next{right:20px;top:50%;transform:translateY(-50%)}
+.down{bottom:20px;left:50%;transform:translateX(-50%);background:#ff9800}
+</style>
+</head>
+<body>
 
+<header>
+NEW PAYAL FASHION KINNIGOLI
+<p>Monsoon Sale 2026</p>
+</header>
+
+<div class="gallery" id="gallery"></div>
+
+<div class="viewer" id="viewer">
+<span class="close" onclick="hide()">✖</span>
+<span class="prev" onclick="move(-1)">❮</span>
+<img id="big">
+<span class="next" onclick="move(1)">❯</span>
+<a id="download" class="down" download>⬇ Download</a>
+</div>
+
+<script>
+const photos=[
+"ChatGPT Image Jun 25, 2026, 02_31_11 PM.png"
+];
+
+const gallery=document.getElementById("gallery");
+photos.forEach((p,i)=>{
+ gallery.innerHTML+=`
+ <div class="card">
+   <img src="${p}" onclick="show(${i})">
+   <a class="btn" href="${p}" download>⬇ Download</a>
+ </div>`;
+});
+
+let current=0;
+function show(i){
+ current=i;
+ document.getElementById("viewer").style.display="flex";
+ document.getElementById("big").src=photos[current];
+ document.getElementById("download").href=photos[current];
+}
+function hide(){
+ document.getElementById("viewer").style.display="none";
+}
+function move(x){
+ current=(current+x+photos.length)%photos.length;
+ document.getElementById("big").src=photos[current];
+ document.getElementById("download").href=photos[current];
+}
+document.addEventListener("keydown",e=>{
+ if(document.getElementById("viewer").style.display!="flex") return;
+ if(e.key==="ArrowRight")move(1);
+ if(e.key==="ArrowLeft")move(-1);
+ if(e.key==="Escape")hide();
+});
+</script>
+</body>
+</html>
